@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive essay on subjectivity: independent thought, internally grounded decisions, and agency."
+    />
+    <title>Subjectivity — Think. Decide. Act.</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="topbar" aria-label="Main navigation" data-i18n-aria="navLabel">
+      <a class="wordmark" href="#top" aria-label="Back to top" data-i18n-aria="backToTop">
+        <span class="wordmark-mark"></span>
+        <span>SUBJECTIVITY</span>
+      </a>
+      <div class="nav-links">
+        <a href="#formation" data-i18n="navFormation">Formation</a>
+        <a href="#practice" data-i18n="navPractice">Practice</a>
+        <a href="#perspectives" data-i18n="navPerspectives">Perspectives</a>
+      </div>
+      <div class="nav-actions">
+        <div class="language-switch" role="group" aria-label="Language" data-i18n-aria="languageLabel">
+          <button class="language-option is-active" data-language="en" type="button" aria-pressed="true">English</button>
+          <span aria-hidden="true">/</span>
+          <button class="language-option" data-language="zh" type="button" aria-pressed="false">中</button>
+        </div>
+        <button class="notion-trigger nav-cta" data-topic="Index" type="button">
+          <span data-i18n="notionIndex">Notion index</span> <span aria-hidden="true">↗</span>
+        </button>
+      </div>
+    </nav>
+
+    <main id="top">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="kicker"><span>01</span> <span data-i18n="heroKicker">An internal point of origin</span></p>
+          <h1 id="hero-title">
+            Subjectivity<br />
+            is a <em>loop.</em>
+          </h1>
+          <div class="hero-intro">
+            <p data-i18n="heroIntro">
+              Subjectivity is the capacity to think independently, keep judgment internally grounded,
+              and act on the decisions that follow.
+            </p>
+            <button class="text-link" data-scroll-to="formation" type="button">
+              <span data-i18n="openLoop">Open the loop</span> <span aria-hidden="true">↓</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-visuals" aria-label="Conceptual images of subjectivity and agency" data-i18n-aria="heroVisualsLabel">
+          <article class="image-card image-card-subjectivity" data-tilt>
+            <img
+              src="./assets/subjectivity-frame.png"
+              alt="A person facing a sequence of illuminated frames, representing an internally grounded point of view"
+              data-i18n-alt="subjectivityImageAlt"
+            />
+            <div class="image-card-meta">
+              <span>01 / INTERNAL VIEW</span>
+              <strong data-i18n="thinkWithin">Think from within.</strong>
+            </div>
+          </article>
+          <article class="image-card image-card-agency" data-tilt>
+            <img
+              src="./assets/agency-steps.png"
+              alt="A person moving along illuminated steps, leaving traces of repeated action behind"
+              data-i18n-alt="agencyImageAlt"
+            />
+            <div class="image-card-meta">
+              <span>02 / VISIBLE ACTION</span>
+              <strong data-i18n="leaveTrace">Leave a trace.</strong>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-footer reveal">
+          <span data-i18n="independentThinking">Independent thinking</span>
+          <span data-i18n="internalDecisionMaking">Internally grounded decisions</span>
+          <span>Agency</span>
+        </div>
+      </section>
+
+      <section class="definition section shell">
+        <div class="section-index reveal">
+          <span data-i18n="definitionLabel">Definition</span>
+          <span data-i18n="thinkDecideAct">Think · Decide · Act</span>
+        </div>
+        <div class="definition-grid">
+          <p class="definition-lead reveal" data-i18n="definitionLead">
+            Subjectivity is not the certainty of being right. Nor is it resistance to influence.
+          </p>
+          <div class="definition-body reveal">
+            <p data-i18n="definitionBody">
+              It is the practice of remaining the primary author of your judgment while staying open
+              to the world. External voices are inputs, not substitutes for decision. Action is
+              feedback, not a betrayal of thought.
+            </p>
+            <div class="definition-rule">
+              <span>INPUT</span><i></i><span>JUDGMENT</span><i></i><span>ACTION</span><i></i><span>FEEDBACK</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="formation section shell" id="formation">
+        <div class="section-heading reveal">
+          <p class="kicker"><span>02</span> <span data-i18n="formationKicker">How it forms</span></p>
+          <h2 data-i18n-html="formationHeading">You do not discover a finished self.<br />You build one through repeated action.</h2>
+          <p data-i18n="formationIntro">
+            The first model shows how lasting change moves from identity to process to outcome.
+            The second maps the reinforcing relationship among subjectivity, agency, and a habit system.
+            Select any arrow to preview its future Notion link.
+          </p>
+        </div>
+
+        <div class="diagram-grid">
+          <article class="diagram-card reveal">
+            <header class="diagram-header">
+              <div>
+                <span>MODEL 01</span>
+                <h3 data-i18n="modelOneTitle">Change, from the inside out</h3>
+              </div>
+              <span class="diagram-number">01</span>
+            </header>
+            <div class="circle-stage" aria-label="Three concentric layers: Identity, Process, and Outcome" data-i18n-aria="habitDiagramLabel">
+              <div class="habit-layer habit-outcome notion-trigger" data-topic="Outcome" role="button" tabindex="0">
+                <span class="layer-label">OUTCOME</span>
+                <span class="layer-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="habit-layer habit-process notion-trigger" data-topic="Process" role="button" tabindex="0">
+                <span class="layer-label">PROCESS</span>
+                <span class="layer-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="habit-layer habit-identity notion-trigger" data-topic="Identity" role="button" tabindex="0">
+                <span class="layer-label">IDENTITY</span>
+                <span class="layer-arrow" aria-hidden="true">↗</span>
+              </div>
+              <span class="circle-axis axis-horizontal"></span>
+              <span class="circle-axis axis-vertical"></span>
+            </div>
+            <footer class="diagram-note">
+              <span data-i18n="identityShapesProcess">Identity shapes process.</span>
+              <span data-i18n="processProducesOutcome">Process produces outcome.</span>
+            </footer>
+          </article>
+
+          <article class="diagram-card reveal">
+            <header class="diagram-header">
+              <div>
+                <span>MODEL 02</span>
+                <h3 data-i18n="modelTwoTitle">The subjectivity flywheel</h3>
+              </div>
+              <span class="diagram-number">02</span>
+            </header>
+            <div class="flywheel" aria-label="The reinforcing relationship among Subjectivity, Agency, and Habit System" data-i18n-aria="flywheelLabel">
+              <span class="orbit orbit-one" aria-hidden="true"></span>
+              <span class="orbit orbit-two" aria-hidden="true"></span>
+              <span class="flow-line flow-one" aria-hidden="true"><i>→</i></span>
+              <span class="flow-line flow-two" aria-hidden="true"><i>→</i></span>
+              <span class="flow-line flow-three" aria-hidden="true"><i>→</i></span>
+
+              <div class="fly-node subjectivity-node notion-trigger" data-topic="Subjectivity" role="button" tabindex="0">
+                <span class="node-seq">01</span>
+                <strong>Subjectivity</strong>
+                <small data-i18n="subjectivityNode">The internal source of judgment</small>
+                <span class="node-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="fly-node agency-node notion-trigger" data-topic="Agency" role="button" tabindex="0">
+                <span class="node-seq">02</span>
+                <strong>Agency</strong>
+                <small data-i18n="agencyNode">Discover the self through action</small>
+                <span class="node-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="fly-node system-node notion-trigger" data-topic="Habit System" role="button" tabindex="0">
+                <span class="node-seq">03</span>
+                <strong>Habit System</strong>
+                <small data-i18n="systemNode">Turn action into a repeatable system</small>
+                <span class="node-arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
+            <footer class="diagram-note">
+              <span data-i18n="actionRevealsIdentity">Action reveals identity.</span>
+              <span data-i18n="systemsReinforceIdentity">Systems reinforce identity.</span>
+            </footer>
+          </article>
+        </div>
+
+        <div class="formation-copy reveal">
+          <p class="formation-thesis" data-i18n="formationThesis">
+            Subjectivity may be the center, but thought alone cannot produce it.
+          </p>
+          <div>
+            <p data-i18n="formationCopyOne">
+              Agency puts judgment into motion. Through choices, action, and real-world feedback,
+              an indistinct sense of self gradually becomes legible.
+            </p>
+            <p data-i18n="formationCopyTwo">
+              Agency also gives rise to a habit system: a repeatable structure that lowers the cost
+              of acting. As action compounds, the system reinforces subjectivity in return.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="practice section" id="practice">
+        <div class="shell">
+          <div class="section-heading compact reveal">
+            <p class="kicker"><span>03</span> <span data-i18n="practiceKicker">Practice</span></p>
+            <h2 data-i18n-html="practiceHeading">Think. Decide. Act.<br />Each depends on the others.</h2>
+          </div>
+          <div class="practice-grid">
+            <article class="practice-card reveal">
+              <span class="practice-number">01</span>
+              <div class="practice-title">
+                <span>THINK</span>
+                <h3 data-i18n="thinkTitle">Independent thought</h3>
+              </div>
+              <p data-i18n="thinkBody">Not reflexive disagreement, but the ability to examine the logic, evidence, assumptions, and omissions behind a conclusion.</p>
+              <ul>
+                <li data-i18n="thinkItemOne">Keep asking why</li>
+                <li data-i18n="thinkItemTwo">Look for counterexamples and third explanations</li>
+                <li data-i18n="thinkItemThree">Write the reasoning down</li>
+              </ul>
+              <button class="notion-trigger card-link" data-topic="Independent Thinking" type="button">
+                <span data-i18n="openNotes">Open notes</span> <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="practice-card reveal">
+              <span class="practice-number">02</span>
+              <div class="practice-title">
+                <span>DECIDE</span>
+                <h3 data-i18n="decideTitle">Internally grounded decisions</h3>
+              </div>
+              <p data-i18n="decideBody">Not the rejection of outside input, but taking responsibility for integrating it, weighing the costs, and making the final call.</p>
+              <ul>
+                <li data-i18n="decideItemOne">Clarify the goal and the desire beneath it</li>
+                <li data-i18n="decideItemTwo">Weigh evidence, values, and costs</li>
+                <li data-i18n="decideItemThree">Check constraints and reversibility</li>
+              </ul>
+              <button class="notion-trigger card-link" data-topic="Decision Making" type="button">
+                <span data-i18n="openNotes">Open notes</span> <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="practice-card reveal">
+              <span class="practice-number">03</span>
+              <div class="practice-title">
+                <span>ACT</span>
+                <h3>Agency</h3>
+              </div>
+              <p data-i18n="actBody">Turn judgment into action, let reality produce new information, then use it to revise the judgment.</p>
+              <ul>
+                <li data-i18n="actItemOne">Take the smallest meaningful next step</li>
+                <li data-i18n="actItemTwo">Use identity to reduce repeated negotiation</li>
+                <li data-i18n="actItemThree">Distinguish prudence from shame</li>
+              </ul>
+              <button class="notion-trigger card-link" data-topic="Agency" type="button">
+                <span data-i18n="openNotes">Open notes</span> <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case section shell">
+        <div class="case-label reveal">
+          <span>CASE / 5 WHYS</span>
+          <p data-i18n="caseLabel">Do not mistake the first problem you see for the real one.</p>
+        </div>
+        <div class="case-flow">
+          <article class="case-step reveal">
+            <span>01</span>
+            <h3 data-i18n="caseOneTitle">I want to buy a glucose monitor</h3>
+            <p data-i18n="caseOneBody">To observe glucose fluctuations and manage sugar intake more precisely.</p>
+          </article>
+          <article class="case-step reveal">
+            <span>02</span>
+            <h3 data-i18n="caseTwoTitle">Why manage glucose?</h3>
+            <p data-i18n="caseTwoBody">To regulate food intake and lose body fat.</p>
+          </article>
+          <article class="case-step reveal">
+            <span>03</span>
+            <h3 data-i18n="caseThreeTitle">Why lose body fat?</h3>
+            <p data-i18n="caseThreeBody">Changes in appearance and shortness of breath reveal a deeper concern: fitness and health.</p>
+          </article>
+          <article class="case-step case-answer reveal">
+            <span>REFRAME</span>
+            <h3 data-i18n-html="caseAnswerTitle">The device measures progress.<br />The habit creates it.</h3>
+            <p data-i18n="caseAnswerBody">Build a baseline of eating, training, and tracking before deciding which tool is worth adding.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="agency-callout section">
+        <div class="shell agency-layout">
+          <div class="agency-question reveal">
+            <p class="kicker"><span>04</span> <span data-i18n="agencyKicker">Ten times more agency</span></p>
+            <h2 data-i18n="agencyHeading">Imagine a version of you with ten times the agency sitting beside you.</h2>
+            <p class="giant-question" data-i18n="agencyQuestion">What would they do in the next ten minutes?</p>
+          </div>
+          <div class="agency-actions">
+            <article class="action-row reveal">
+              <span>01</span>
+              <p data-i18n="actionOneProblem">You want to enter the gym, but do not yet feel like someone who belongs there.</p>
+              <strong data-i18n="actionOneAnswer">Go once. Stay for ten minutes.</strong>
+            </article>
+            <article class="action-row reveal">
+              <span>02</span>
+              <p data-i18n="actionTwoProblem">The work is done, but everyone else is still at their desk.</p>
+              <strong data-i18n="actionTwoAnswer">Leave normally. Return the time to yourself.</strong>
+            </article>
+            <article class="action-row reveal">
+              <span>03</span>
+              <p data-i18n="actionThreeProblem">You need clarity, but asking another question might make you look uninformed.</p>
+              <strong data-i18n="actionThreeAnswer">Ask for one concrete reason.</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="perspectives section shell" id="perspectives">
+        <div class="section-heading reveal">
+          <p class="kicker"><span>05</span> <span data-i18n="perspectivesKicker">Perspectives</span></p>
+          <h2 data-i18n-html="perspectivesHeading">Subjectivity has never been<br />an isolated, self-sufficient core.</h2>
+          <p data-i18n="perspectivesIntro">
+            Intellectual history keeps returning to the same tension: the subject shapes the world
+            and is shaped by it. Mature subjectivity must make room for both freedom and constraint.
+          </p>
+        </div>
+        <div class="perspective-list">
+          <article class="perspective-row reveal">
+            <span>DESCARTES / KANT</span>
+            <h3 data-i18n="perspectiveOneTitle">The subject organizes experience</h3>
+            <p data-i18n="perspectiveOneBody">We do not passively receive the world; we make it intelligible through cognitive frames.</p>
+            <button class="notion-trigger mini-link" data-topic="Modern Subjectivity" type="button">↗</button>
+          </article>
+          <article class="perspective-row reveal">
+            <span>SARTRE / PHENOMENOLOGY</span>
+            <h3 data-i18n="perspectiveTwoTitle">Choice and action define the self</h3>
+            <p data-i18n="perspectiveTwoBody">The subject is always embodied and situated within relationships, history, and circumstance.</p>
+            <button class="notion-trigger mini-link" data-topic="Existentialism" type="button">↗</button>
+          </article>
+          <article class="perspective-row reveal">
+            <span>FOUCAULT / BUTLER</span>
+            <h3 data-i18n="perspectiveThreeTitle">Norms participate in making the subject</h3>
+            <p data-i18n="perspectiveThreeBody">What feels like an inner voice may also be produced by power, language, and repetition.</p>
+            <button class="notion-trigger mini-link" data-topic="Subjectivation" type="button">↗</button>
+          </article>
+          <article class="perspective-row reveal">
+            <span>INTERSUBJECTIVITY</span>
+            <h3 data-i18n="perspectiveFourTitle">Subjects correct one another</h3>
+            <p data-i18n="perspectiveFourBody">Independent thought is not self-belief alone; it allows evidence and other people to expose its blind spots.</p>
+            <button class="notion-trigger mini-link" data-topic="Intersubjectivity" type="button">↗</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="closing section shell">
+        <p class="closing-label reveal" data-i18n="closingLabel">A working definition</p>
+        <blockquote class="reveal" data-i18n-html="closingQuote">
+          To remain capable of understanding, judging, choosing, and acting<br />
+          while living among forces that continually shape you.
+        </blockquote>
+        <div class="closing-meta reveal">
+          <span>THINK</span>
+          <span>DECIDE</span>
+          <span>ACT</span>
+          <span>REPEAT</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer shell">
+      <span>SUBJECTIVITY / 2026</span>
+      <span data-i18n="footerLine">Independent thought · Internally grounded decisions · Agency</span>
+      <a href="#top" data-i18n="backToTopText">Back to top ↑</a>
+    </footer>
+
+    <div class="toast" role="status" aria-live="polite" aria-hidden="true">
+      <div>
+        <span class="toast-label" data-i18n="toastLabel">NOTION LINK PLACEHOLDER</span>
+        <strong></strong>
+      </div>
+      <span aria-hidden="true">↗</span>
+    </div>
+  </body>
+</html>
