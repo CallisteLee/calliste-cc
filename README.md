@@ -38,6 +38,7 @@ npm run dev
 
 在 Cloudflare Pages 中连接此 GitHub 仓库，并使用以下构建设置：
 
+- Project name：`calliste-cc`
 - Production branch：`main`
 - Build command：`npm run build`
 - Build output directory：`dist`
