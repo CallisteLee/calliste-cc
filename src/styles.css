@@ -512,17 +512,16 @@ h1 em {
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.56);
   border-radius: 50%;
-  cursor: pointer;
+  pointer-events: none;
   transition:
     border-color 350ms ease,
     background 350ms ease,
     transform 500ms var(--ease);
 }
 
-.habit-layer:hover,
-.habit-layer:focus-visible {
+.habit-layer:has(.layer-arrow:hover),
+.habit-layer:has(.layer-arrow:focus-visible) {
   z-index: 10;
-  outline: none;
   border-color: var(--white);
   background: rgba(255, 255, 255, 0.045);
   transform: scale(1.025);
@@ -569,10 +568,19 @@ h1 em {
   place-items: center;
   width: 32px;
   height: 32px;
+  padding: 0;
   border: 1px solid currentColor;
   border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
   font-size: 14px;
   transition: transform 400ms var(--ease), background 240ms ease, color 240ms ease;
+}
+
+.layer-arrow {
+  z-index: 5;
+  pointer-events: auto;
 }
 
 .habit-outcome .layer-arrow {
@@ -592,10 +600,16 @@ h1 em {
   color: var(--white);
 }
 
-.habit-layer:hover .layer-arrow,
+.layer-arrow:hover,
+.layer-arrow:focus-visible,
 .fly-node:hover .node-arrow,
 .perspective-row:hover .mini-link {
   transform: rotate(45deg);
+}
+
+.layer-arrow:focus-visible {
+  outline: 1px solid var(--white);
+  outline-offset: 4px;
 }
 
 .circle-axis {
