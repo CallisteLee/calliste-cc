@@ -28,7 +28,7 @@ const chineseCopy = {
   definitionBody: "它是在保持对世界开放的同时，仍然成为自己判断的主要作者。外部声音是输入，而不是决策的替代品；行动是反馈，而不是对思考的背叛。",
   formationKicker: "它如何形成",
   formationHeading: "你不是在发现一个已经完成的自我。<br />你是在反复行动中塑造它。",
-  formationIntro: "左图说明持续改变如何从 Identity 走向 Process，再形成 Outcome；右图呈现 Subjectivity、Agency 与 Habit System 彼此强化的关系。点击任意箭头，可以预览后续的 Notion 跳转。",
+  formationIntro: "左图说明持续改变如何从 Identity 走向 Process，再形成 Outcome；右图呈现 Subjectivity、Agency 与 Habit System 彼此强化的关系。点击任意一层，可以预览后续的 Notion 跳转。",
   modelOneTitle: "由内而外的改变",
   modelTwoTitle: "主体性的飞轮",
   habitDiagramLabel: "Identity、Process 与 Outcome 三层同心圆",
@@ -141,6 +141,7 @@ document.querySelectorAll("[data-language]").forEach((button) => {
 // Replace the empty values with the final Notion URLs when they are ready.
 const notionLinks = {
   "Index": "",
+  "Change Model": "",
   "Outcome": "",
   "Process": "",
   "Identity": "",
@@ -177,12 +178,13 @@ const showPlaceholder = (topic) => {
 document.querySelectorAll(".notion-trigger").forEach((trigger) => {
   const activate = () => {
     const topic = trigger.dataset.topic ?? "Notion page";
-    const url = notionLinks[topic];
+    const linkKey = trigger.dataset.linkKey ?? topic;
+    const url = notionLinks[linkKey];
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
       return;
     }
-    showPlaceholder(topic);
+    showPlaceholder(linkKey);
   };
   trigger.addEventListener("click", activate);
   if (trigger.getAttribute("role") === "button") {
@@ -193,6 +195,14 @@ document.querySelectorAll(".notion-trigger").forEach((trigger) => {
       }
     });
   }
+});
+
+document.querySelectorAll(".habit-zone").forEach((zone) => {
+  const setHovered = (hovered) => zone.classList.toggle("is-hovered", hovered);
+  zone.addEventListener("pointerenter", () => setHovered(true));
+  zone.addEventListener("pointerleave", () => setHovered(false));
+  zone.addEventListener("focus", () => setHovered(true));
+  zone.addEventListener("blur", () => setHovered(false));
 });
 
 document.querySelectorAll("[data-scroll-to]").forEach((trigger) => {

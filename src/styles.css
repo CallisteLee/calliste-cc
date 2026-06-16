@@ -506,62 +506,70 @@ h1 em {
   place-items: center;
 }
 
-.habit-layer {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.56);
-  border-radius: 50%;
+.habit-diagram {
+  width: min(92%, 540px);
+  overflow: visible;
+}
+
+.habit-axis {
+  stroke: rgba(255, 255, 255, 0.09);
+  stroke-width: 1;
   pointer-events: none;
+}
+
+.habit-zone {
+  cursor: pointer;
+  outline: none;
+}
+
+.habit-ring {
+  fill: rgba(255, 255, 255, 0);
+  stroke: rgba(255, 255, 255, 0.56);
+  stroke-width: 1.2;
   transition:
-    border-color 350ms ease,
-    background 350ms ease,
+    fill 280ms ease,
+    stroke 280ms ease,
+    filter 360ms ease,
     transform 500ms var(--ease);
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
 }
 
-.habit-layer:has(.layer-arrow:hover),
-.habit-layer:has(.layer-arrow:focus-visible) {
-  z-index: 10;
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.045);
-  transform: scale(1.025);
+.habit-zone:hover .habit-ring,
+.habit-zone.is-hovered .habit-ring,
+.habit-zone:focus-visible .habit-ring {
+  fill: rgba(255, 255, 255, 0.08);
+  stroke: var(--white);
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.2));
+  transform: scale(1.012);
 }
 
-.habit-outcome {
-  width: min(78%, 460px);
-  aspect-ratio: 1;
+.habit-identity .habit-ring {
+  fill: var(--white);
+  stroke: var(--white);
 }
 
-.habit-process {
-  z-index: 2;
-  width: min(54%, 318px);
-  aspect-ratio: 1;
-  background: #090909;
+.habit-identity:hover .habit-ring,
+.habit-identity.is-hovered .habit-ring,
+.habit-identity:focus-visible .habit-ring {
+  fill: var(--white);
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.35));
 }
 
-.habit-identity {
-  z-index: 3;
-  width: min(29%, 170px);
-  aspect-ratio: 1;
-  background: var(--white);
-  color: var(--black);
-}
-
-.layer-label {
+.habit-label {
   font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
   font-size: 10px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
+  fill: var(--white);
+  pointer-events: none;
+  user-select: none;
 }
 
-.habit-outcome .layer-label {
-  transform: translateY(-184px);
+.habit-identity .habit-label {
+  fill: var(--black);
 }
 
-.habit-process .layer-label {
-  transform: translateY(-111px);
-}
-
-.layer-arrow,
 .node-arrow {
   position: absolute;
   display: grid;
@@ -578,38 +586,44 @@ h1 em {
   transition: transform 400ms var(--ease), background 240ms ease, color 240ms ease;
 }
 
-.layer-arrow {
-  z-index: 5;
-  pointer-events: auto;
+.habit-arrow-shell,
+.habit-arrow-mark {
+  pointer-events: none;
 }
 
-.habit-outcome .layer-arrow {
-  top: 12%;
-  right: 15%;
+.habit-arrow-shell {
+  fill: #090909;
+  stroke: var(--white);
+  stroke-width: 1.2;
+  transition:
+    fill 240ms ease,
+    stroke 240ms ease,
+    transform 400ms var(--ease);
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
 }
 
-.habit-process .layer-arrow {
-  right: 4%;
-  bottom: 23%;
+.habit-arrow-mark {
+  fill: var(--white);
+  font-size: 17px;
+  transition: transform 400ms var(--ease);
+  transform-box: fill-box;
+  transform-origin: center;
+  user-select: none;
 }
 
-.habit-identity .layer-arrow {
-  right: -5px;
-  bottom: -5px;
-  background: var(--black);
-  color: var(--white);
-}
-
-.layer-arrow:hover,
-.layer-arrow:focus-visible,
+.habit-zone:hover .habit-arrow-mark,
+.habit-zone.is-hovered .habit-arrow-mark,
+.habit-zone:focus-visible .habit-arrow-mark,
 .fly-node:hover .node-arrow,
 .perspective-row:hover .mini-link {
   transform: rotate(45deg);
 }
 
-.layer-arrow:focus-visible {
-  outline: 1px solid var(--white);
-  outline-offset: 4px;
+.habit-zone.is-hovered .habit-arrow-shell,
+.habit-zone:focus-visible .habit-arrow-shell {
+  stroke-width: 1.8;
 }
 
 .circle-axis {
