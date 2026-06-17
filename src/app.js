@@ -158,7 +158,11 @@ document.querySelectorAll("[data-language]").forEach((button) => {
 document.querySelectorAll("[data-email-trigger]").forEach((trigger) => {
   trigger.addEventListener("click", (event) => {
     event.preventDefault();
-    const mailtoUrl = trigger.getAttribute("href");
+    const emailUser = trigger.dataset.emailUser;
+    const emailDomain = trigger.dataset.emailDomain;
+    const mailtoUrl = emailUser && emailDomain
+      ? `mailto:${emailUser}@${emailDomain}`
+      : trigger.getAttribute("href");
     const gmailComposeUrl = trigger.dataset.gmailComposeUrl;
     if (!mailtoUrl) return;
 
