@@ -29,9 +29,16 @@
           <span aria-hidden="true">/</span>
           <button class="language-option" data-language="zh" type="button" aria-pressed="false">中</button>
         </div>
-        <button class="notion-trigger nav-cta" data-topic="Index" type="button">
-          <span data-i18n="notionIndex">Notion index</span> <span aria-hidden="true">↗</span>
-        </button>
+        <a
+          class="nav-cta"
+          href="mailto:l952411817@gmail.com"
+          data-email-trigger
+          data-gmail-compose-url="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=l952411817%40gmail.com"
+          aria-label="Email Calliste"
+          data-i18n-aria="emailActionLabel"
+        >
+          <span data-i18n="contactEmail">Calliste's Email</span> <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </nav>
 
@@ -54,7 +61,7 @@
           </div>
         </div>
 
-        <div class="hero-visuals" aria-label="Training progress photos showing visible fitness outcomes" data-i18n-aria="heroVisualsLabel">
+        <div id="hero-photos" class="hero-visuals" aria-label="Training progress photos showing visible fitness outcomes" data-i18n-aria="heroVisualsLabel">
           <button class="image-card image-card-subjectivity" data-tilt data-photo-viewer-trigger type="button">
             <img
               src="./assets/photo-left.jpg"
@@ -115,7 +122,7 @@
           <p data-i18n="formationIntro">
             The first model shows how lasting change moves from identity to process to outcome.
             The second maps the reinforcing relationship among subjectivity, agency, and a habit system.
-            Select any layer to preview its future Notion link.
+            Select Identity for role tags, Process for visual references, or Outcome to return to the hero photos.
           </p>
         </div>
 
@@ -133,12 +140,13 @@
                 <line class="habit-axis" x1="38" y1="260" x2="482" y2="260" />
                 <line class="habit-axis" x1="260" y1="38" x2="260" y2="482" />
                 <g
-                  class="habit-zone habit-outcome notion-trigger"
+                  class="habit-zone habit-outcome"
                   data-topic="Outcome"
-                  data-link-key="Change Model"
+                  data-layer-action="outcome"
                   role="button"
                   tabindex="0"
-                  aria-label="Open shared change model notes from Outcome"
+                  aria-label="Return to the hero photos from Outcome"
+                  data-i18n-aria="outcomeLayerLabel"
                 >
                   <path
                     class="habit-ring"
@@ -150,12 +158,13 @@
                   <text class="habit-arrow-mark" x="372" y="142" text-anchor="middle" dominant-baseline="central">↗</text>
                 </g>
                 <g
-                  class="habit-zone habit-process notion-trigger"
+                  class="habit-zone habit-process"
                   data-topic="Process"
-                  data-link-key="Change Model"
+                  data-layer-action="process"
                   role="button"
                   tabindex="0"
-                  aria-label="Open shared change model notes from Process"
+                  aria-label="Show process reference photos"
+                  data-i18n-aria="processLayerLabel"
                 >
                   <path
                     class="habit-ring"
@@ -167,12 +176,13 @@
                   <text class="habit-arrow-mark" x="360" y="342" text-anchor="middle" dominant-baseline="central">↗</text>
                 </g>
                 <g
-                  class="habit-zone habit-identity notion-trigger"
+                  class="habit-zone habit-identity"
                   data-topic="Identity"
-                  data-link-key="Change Model"
+                  data-layer-action="identity"
                   role="button"
                   tabindex="0"
-                  aria-label="Open shared change model notes from Identity"
+                  aria-label="Show identity tags"
+                  data-i18n-aria="identityLayerLabel"
                 >
                   <circle class="habit-ring" cx="260" cy="260" r="70" />
                   <text class="habit-label" x="260" y="264" text-anchor="middle">IDENTITY</text>
@@ -426,6 +436,10 @@
         <strong></strong>
       </div>
       <span aria-hidden="true">↗</span>
+    </div>
+
+    <div class="layer-popover" aria-hidden="true" data-layer-popover>
+      <div class="layer-popover-panel" role="dialog" aria-modal="false" data-layer-popover-panel></div>
     </div>
 
     <div class="photo-viewer" aria-hidden="true" data-photo-viewer>

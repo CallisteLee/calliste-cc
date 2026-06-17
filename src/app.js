@@ -4,10 +4,16 @@ const toastTitle = toast?.querySelector("strong");
 const photoViewer = document.querySelector("[data-photo-viewer]");
 const photoViewerFrame = photoViewer?.querySelector(".photo-viewer-frame");
 const photoViewerImage = photoViewer?.querySelector("img");
+const layerPopover = document.querySelector("[data-layer-popover]");
+const layerPopoverPanel = layerPopover?.querySelector("[data-layer-popover-panel]");
+const heroPhotos = document.getElementById("hero-photos");
 let toastTimer;
 let currentLanguage = "en";
 let activePhotoTrigger;
 let photoViewerTimer;
+let activeLayerAction;
+let activeLayerTrigger;
+let heroFocusTimer;
 
 const chineseCopy = {
   navLabel: "主导航",
@@ -16,7 +22,8 @@ const chineseCopy = {
   navFormation: "形成过程",
   navPractice: "实践",
   navPerspectives: "思想视角",
-  notionIndex: "Notion 索引",
+  contactEmail: "Calliste 的邮箱",
+  emailActionLabel: "给 Calliste 发邮件",
   heroKicker: "一个源自内部的判断原点",
   heroIntro: "主体性，是独立思考的意识和能力；是以内部判断为主导的决策过程；也是将决定转化为行动的能力。",
   openLoop: "展开循环",
@@ -35,7 +42,10 @@ const chineseCopy = {
   definitionBody: "它是在保持对世界开放的同时，仍然成为自己判断的主要作者。外部声音是输入，而不是决策的替代品；行动是反馈，而不是对思考的背叛。",
   formationKicker: "它如何形成",
   formationHeading: "你不是在发现一个已经完成的自我。<br />你是在反复行动中塑造它。",
-  formationIntro: "左图说明持续改变如何从 Identity 走向 Process，再形成 Outcome；右图呈现 Subjectivity、Agency 与 Habit System 彼此强化的关系。点击任意一层，可以预览后续的 Notion 跳转。",
+  formationIntro: "左图说明持续改变如何从 Identity 走向 Process，再形成 Outcome；右图呈现 Subjectivity、Agency 与 Habit System 彼此强化的关系。点击 Identity 查看身份标签，点击 Process 查看过程照片，点击 Outcome 回到顶部照片。",
+  outcomeLayerLabel: "从 Outcome 回到顶部照片",
+  processLayerLabel: "查看 Process 过程照片",
+  identityLayerLabel: "查看 Identity 身份标签",
   modelOneTitle: "由内而外的改变",
   modelTwoTitle: "主体性的飞轮",
   habitDiagramLabel: "Identity、Process 与 Outcome 三层同心圆",
@@ -145,23 +155,35 @@ document.querySelectorAll("[data-language]").forEach((button) => {
   button.addEventListener("click", () => applyLanguage(button.dataset.language));
 });
 
-// Replace the empty values with the final Notion URLs when they are ready.
-const notionLinks = {
-  "Index": "",
-  "Change Model": "",
-  "Outcome": "",
-  "Process": "",
-  "Identity": "",
-  "Subjectivity": "",
-  "Agency": "",
-  "Habit System": "",
-  "Independent Thinking": "",
-  "Decision Making": "",
-  "Modern Subjectivity": "",
-  "Existentialism": "",
-  "Subjectivation": "",
-  "Intersubjectivity": ""
+document.querySelectorAll("[data-email-trigger]").forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    event.preventDefault();
+    const mailtoUrl = trigger.getAttribute("href");
+    const gmailComposeUrl = trigger.dataset.gmailComposeUrl;
+    if (!mailtoUrl) return;
+
+    window.location.href = mailtoUrl;
+    window.setTimeout(() => {
+      if (!gmailComposeUrl || document.visibilityState !== "visible" || !document.hasFocus()) return;
+      window.open(gmailComposeUrl, "_blank", "noopener,noreferrer");
+    }, 900);
+  });
+});
+
+const externalLinks = {
+  en: {
+    "Subjectivity": "https://gemini.google.com/share/7be8243227b7",
+    "Agency": "https://highagency.com",
+    "Habit System": "https://locrian-melon-56f.notion.site/How-to-Cultivate-Good-Habits-Practical-Insights-from-Atomic-Habits-382462143a4880f3b30dfb64b61e6af3"
+  },
+  zh: {
+    "Subjectivity": "https://gemini.google.com/share/7be8243227b7",
+    "Agency": "https://my.feishu.cn/docx/HZC3dltbUokA1kxnv8Act3erned?from=space_search&previous_navigation_time=1781678420983",
+    "Habit System": "https://my.feishu.cn/docx/ErrmdpVKboR5IPxwTSLciQEFnng"
+  }
 };
+
+const getExternalLink = (linkKey) => externalLinks[currentLanguage]?.[linkKey] ?? externalLinks.en[linkKey] ?? "";
 
 const updateProgress = () => {
   const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -186,7 +208,7 @@ document.querySelectorAll(".notion-trigger").forEach((trigger) => {
   const activate = () => {
     const topic = trigger.dataset.topic ?? "Notion page";
     const linkKey = trigger.dataset.linkKey ?? topic;
-    const url = notionLinks[linkKey];
+    const url = getExternalLink(linkKey);
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
       return;
@@ -202,6 +224,160 @@ document.querySelectorAll(".notion-trigger").forEach((trigger) => {
       }
     });
   }
+});
+
+const identityTags = [
+  "Gym Bro (New)",
+  "Connector",
+  "Self-taught English Learner",
+  "Product Manager/Designer"
+];
+
+const processPhotos = [
+  {
+    src: "./assets/process-log.jpg",
+    alt: "Habit process training log"
+  },
+  {
+    src: "./assets/process-progress.jpg",
+    alt: "Training strength progress comparison"
+  }
+];
+
+const closeLayerPopover = () => {
+  if (!layerPopover) return;
+  layerPopover.classList.remove("is-open");
+  layerPopover.setAttribute("aria-hidden", "true");
+  activeLayerAction = undefined;
+  activeLayerTrigger = undefined;
+};
+
+const setLayerPopoverPosition = (trigger, event, action) => {
+  if (!layerPopover) return;
+  const rect = trigger.getBoundingClientRect();
+  const sourceX = typeof event.clientX === "number" ? event.clientX : rect.left + rect.width / 2;
+  const sourceY = typeof event.clientY === "number" ? event.clientY : rect.top + rect.height / 2;
+  const panelWidth = action === "process"
+    ? Math.min(782, window.innerWidth - 32)
+    : Math.min(370, window.innerWidth - 32);
+  const panelHeight = action === "process" ? Math.min(454, window.innerHeight - 110) : 238;
+  const verticalOffset = action === "process" ? panelHeight / 2 + 58 : panelHeight / 2 + 52;
+  const targetY = sourceY + verticalOffset;
+  const xMin = 16 + panelWidth / 2;
+  const xMax = window.innerWidth - 16 - panelWidth / 2;
+  const yMin = 86 + panelHeight / 2;
+  const yMax = window.innerHeight - 16 - panelHeight / 2;
+  const x = Math.min(Math.max(sourceX, xMin), Math.max(xMin, xMax));
+  const y = Math.min(Math.max(targetY, yMin), Math.max(yMin, yMax));
+
+  layerPopover.style.setProperty("--layer-popover-x", `${x}px`);
+  layerPopover.style.setProperty("--layer-popover-y", `${y}px`);
+};
+
+const renderIdentityPopover = () => {
+  if (!layerPopoverPanel) return;
+  const tagList = document.createElement("div");
+  tagList.className = "identity-tags";
+  layerPopoverPanel.setAttribute("aria-label", currentLanguage === "zh" ? "人格标签" : "Identity tags");
+
+  identityTags.forEach((tag) => {
+    const chip = document.createElement("span");
+    chip.className = "identity-tag";
+    chip.textContent = tag;
+    tagList.append(chip);
+  });
+
+  layerPopoverPanel.replaceChildren(tagList);
+};
+
+const renderProcessPopover = () => {
+  if (!layerPopoverPanel) return;
+  const imageGrid = document.createElement("div");
+  imageGrid.className = "process-images";
+  layerPopoverPanel.setAttribute("aria-label", currentLanguage === "zh" ? "过程照片" : "Process reference photos");
+
+  processPhotos.forEach((photo) => {
+    const image = document.createElement("img");
+    image.src = photo.src;
+    image.alt = photo.alt;
+    image.loading = "lazy";
+    image.decoding = "async";
+    imageGrid.append(image);
+  });
+
+  layerPopoverPanel.replaceChildren(imageGrid);
+};
+
+const openLayerPopover = (action, trigger, event) => {
+  if (!layerPopover || !layerPopoverPanel) return;
+
+  if (layerPopover.classList.contains("is-open") && activeLayerAction === action && activeLayerTrigger === trigger) {
+    closeLayerPopover();
+    return;
+  }
+
+  if (action === "identity") {
+    renderIdentityPopover();
+  } else if (action === "process") {
+    renderProcessPopover();
+  }
+
+  activeLayerAction = action;
+  activeLayerTrigger = trigger;
+  setLayerPopoverPosition(trigger, event, action);
+  layerPopover.setAttribute("aria-hidden", "false");
+  layerPopover.classList.add("is-open");
+};
+
+const returnToHeroPhotos = () => {
+  closeLayerPopover();
+  if (!heroPhotos) return;
+
+  window.scrollTo({
+    top: heroPhotos.getBoundingClientRect().top + window.scrollY - 92,
+    behavior: "smooth"
+  });
+
+  heroPhotos.classList.remove("is-targeted");
+  void heroPhotos.offsetWidth;
+  heroPhotos.classList.add("is-targeted");
+  window.clearTimeout(heroFocusTimer);
+  heroFocusTimer = window.setTimeout(() => {
+    heroPhotos.classList.remove("is-targeted");
+  }, 1500);
+};
+
+document.querySelectorAll("[data-layer-action]").forEach((trigger) => {
+  const activate = (event) => {
+    const action = trigger.dataset.layerAction;
+    if (action === "outcome") {
+      returnToHeroPhotos();
+      return;
+    }
+
+    if (action === "identity" || action === "process") {
+      openLayerPopover(action, trigger, event);
+    }
+  };
+
+  trigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    activate(event);
+  });
+
+  trigger.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activate(event);
+    }
+  });
+});
+
+document.addEventListener("click", (event) => {
+  if (!layerPopover?.classList.contains("is-open")) return;
+  if (layerPopoverPanel?.contains(event.target)) return;
+  if (activeLayerTrigger?.contains(event.target)) return;
+  closeLayerPopover();
 });
 
 document.querySelectorAll(".habit-zone").forEach((zone) => {
@@ -300,8 +476,13 @@ photoViewer?.addEventListener("click", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && photoViewer?.classList.contains("is-open")) {
-    closePhotoViewer();
+  if (event.key === "Escape") {
+    if (photoViewer?.classList.contains("is-open")) {
+      closePhotoViewer();
+    }
+    if (layerPopover?.classList.contains("is-open")) {
+      closeLayerPopover();
+    }
   }
 });
 
