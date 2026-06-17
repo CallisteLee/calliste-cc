@@ -54,29 +54,29 @@
           </div>
         </div>
 
-        <div class="hero-visuals" aria-label="Conceptual images of subjectivity and agency" data-i18n-aria="heroVisualsLabel">
-          <article class="image-card image-card-subjectivity" data-tilt>
+        <div class="hero-visuals" aria-label="Training progress photos showing visible fitness outcomes" data-i18n-aria="heroVisualsLabel">
+          <button class="image-card image-card-subjectivity" data-tilt data-photo-viewer-trigger type="button">
             <img
-              src="./assets/subjectivity-frame.png"
-              alt="A person facing a sequence of illuminated frames, representing an internally grounded point of view"
+              src="./assets/photo-left.jpg"
+              alt="A post-workout portrait with red side lighting, showing the visible result of training"
               data-i18n-alt="subjectivityImageAlt"
             />
             <div class="image-card-meta">
-              <span>01 / INTERNAL VIEW</span>
-              <strong data-i18n="thinkWithin">Think from within.</strong>
+              <span data-i18n="photoOneLabel">01 / AFTER THE SYSTEM</span>
+              <strong data-i18n="thinkWithin">After habits and process, the body answers.</strong>
             </div>
-          </article>
-          <article class="image-card image-card-agency" data-tilt>
+          </button>
+          <button class="image-card image-card-agency" data-tilt data-photo-viewer-trigger type="button">
             <img
-              src="./assets/agency-steps.png"
-              alt="A person moving along illuminated steps, leaving traces of repeated action behind"
+              src="./assets/photo-right.jpg"
+              alt="A torso progress check-in photo documenting body composition after training"
               data-i18n-alt="agencyImageAlt"
             />
             <div class="image-card-meta">
-              <span>02 / VISIBLE ACTION</span>
-              <strong data-i18n="leaveTrace">Leave a trace.</strong>
+              <span data-i18n="photoTwoLabel">02 / BEFORE THE SYSTEM</span>
+              <strong data-i18n="leaveTrace">I had never done this properly, systematically.</strong>
             </div>
-          </article>
+          </button>
         </div>
 
         <div class="hero-footer reveal">
@@ -426,6 +426,13 @@
         <strong></strong>
       </div>
       <span aria-hidden="true">↗</span>
+    </div>
+
+    <div class="photo-viewer" aria-hidden="true" data-photo-viewer>
+      <div class="photo-viewer-backdrop" data-photo-viewer-close></div>
+      <figure class="photo-viewer-frame" role="dialog" aria-modal="true" aria-label="Expanded image preview">
+        <img src="" alt="" />
+      </figure>
     </div>
   </body>
 </html>

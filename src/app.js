@@ -1,8 +1,13 @@
 const progress = document.querySelector(".progress span");
 const toast = document.querySelector(".toast");
 const toastTitle = toast?.querySelector("strong");
+const photoViewer = document.querySelector("[data-photo-viewer]");
+const photoViewerFrame = photoViewer?.querySelector(".photo-viewer-frame");
+const photoViewerImage = photoViewer?.querySelector("img");
 let toastTimer;
 let currentLanguage = "en";
+let activePhotoTrigger;
+let photoViewerTimer;
 
 const chineseCopy = {
   navLabel: "主导航",
@@ -15,11 +20,13 @@ const chineseCopy = {
   heroKicker: "一个源自内部的判断原点",
   heroIntro: "主体性，是独立思考的意识和能力；是以内部判断为主导的决策过程；也是将决定转化为行动的能力。",
   openLoop: "展开循环",
-  heroVisualsLabel: "主体性与行动的概念图",
-  subjectivityImageAlt: "一个人在层层光影框架中观察前方，象征内部视角与独立判断",
-  agencyImageAlt: "一个人沿着光亮台阶向前行动，身后留下连续的行动轨迹",
-  thinkWithin: "从内部开始思考。",
-  leaveTrace: "让行动留下痕迹。",
+  heroVisualsLabel: "呈现健身成果的训练进展照片",
+  subjectivityImageAlt: "一张带有红色侧光的训练后人像，呈现健身成果的可见反馈",
+  agencyImageAlt: "一张身体状态记录照片，用于呈现训练后的体态变化证据",
+  photoOneLabel: "01 / 习惯系统之后",
+  photoTwoLabel: "02 / 系统化之前",
+  thinkWithin: "在习惯系统和过程之后，身体给出答案。",
+  leaveTrace: "以前从没有好好地、系统地做过这件事。",
   independentThinking: "独立思考",
   internalDecisionMaking: "内部主导的决策",
   definitionLabel: "定义",
@@ -214,6 +221,88 @@ document.querySelectorAll("[data-scroll-to]").forEach((trigger) => {
       behavior: "smooth"
     });
   });
+});
+
+const getViewerDimensions = (image, sourceRect) => {
+  const maxHeight = window.innerHeight * 0.7;
+  const maxWidth = Math.min(window.innerWidth * 0.92, 1180);
+  const naturalRatio = image.naturalWidth && image.naturalHeight
+    ? image.naturalWidth / image.naturalHeight
+    : sourceRect.width / sourceRect.height;
+  let height = maxHeight;
+  let width = height * naturalRatio;
+
+  if (width > maxWidth) {
+    width = maxWidth;
+    height = width / naturalRatio;
+  }
+
+  return { width, height };
+};
+
+const openPhotoViewer = (trigger) => {
+  if (!photoViewer || !photoViewerFrame || !photoViewerImage) return;
+  const sourceImage = trigger.querySelector("img");
+  if (!sourceImage) return;
+
+  window.clearTimeout(photoViewerTimer);
+  activePhotoTrigger = trigger;
+  const rect = trigger.getBoundingClientRect();
+  const finalSize = getViewerDimensions(sourceImage, rect);
+
+  photoViewerImage.src = sourceImage.currentSrc || sourceImage.src;
+  photoViewerImage.alt = sourceImage.alt;
+  photoViewer.setAttribute("aria-hidden", "false");
+  document.body.classList.add("photo-viewer-open");
+
+  photoViewerFrame.style.setProperty("--viewer-top", `${rect.top}px`);
+  photoViewerFrame.style.setProperty("--viewer-left", `${rect.left}px`);
+  photoViewerFrame.style.setProperty("--viewer-width", `${rect.width}px`);
+  photoViewerFrame.style.setProperty("--viewer-height", `${rect.height}px`);
+  photoViewerFrame.style.setProperty("--viewer-final-width", `${finalSize.width}px`);
+  photoViewer.classList.add("is-open");
+  photoViewer.classList.remove("is-ready", "is-closing");
+
+  requestAnimationFrame(() => {
+    photoViewer.classList.add("is-ready");
+  });
+};
+
+const closePhotoViewer = () => {
+  if (!photoViewer || !photoViewerFrame || !activePhotoTrigger) return;
+  const rect = activePhotoTrigger.getBoundingClientRect();
+
+  photoViewer.classList.add("is-closing");
+  photoViewer.classList.remove("is-ready");
+  photoViewerFrame.style.setProperty("--viewer-top", `${rect.top}px`);
+  photoViewerFrame.style.setProperty("--viewer-left", `${rect.left}px`);
+  photoViewerFrame.style.setProperty("--viewer-width", `${rect.width}px`);
+  photoViewerFrame.style.setProperty("--viewer-height", `${rect.height}px`);
+
+  window.clearTimeout(photoViewerTimer);
+  photoViewerTimer = window.setTimeout(() => {
+    photoViewer.classList.remove("is-open", "is-closing");
+    photoViewer.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("photo-viewer-open");
+    activePhotoTrigger?.focus({ preventScroll: true });
+    activePhotoTrigger = undefined;
+  }, 520);
+};
+
+document.querySelectorAll("[data-photo-viewer-trigger]").forEach((trigger) => {
+  trigger.addEventListener("click", () => openPhotoViewer(trigger));
+});
+
+photoViewer?.addEventListener("click", (event) => {
+  if (!photoViewerFrame?.contains(event.target)) {
+    closePhotoViewer();
+  }
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && photoViewer?.classList.contains("is-open")) {
+    closePhotoViewer();
+  }
 });
 
 const revealObserver = new IntersectionObserver(
