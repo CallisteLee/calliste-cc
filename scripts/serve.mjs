@@ -42,5 +42,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, "127.0.0.1", () => {
-  console.log(`Subjectivity preview: http://127.0.0.1:${port}`);
+console.log(`练了嘛官网预览：http://127.0.0.1:${port}`);
 });
