@@ -1,0 +1,18 @@
+{
+  "source": "Xcode Simulator capture via simctl",
+  "bundleId": "com.liyuqian.HealthTracker",
+  "app": "练了嘛",
+  "device": "iPhone 16 Pro",
+  "os": "iOS 18.4",
+  "capturedAt": "2026-08-04",
+  "pixelSize": {
+    "width": 1206,
+    "height": 2622
+  },
+  "files": [
+    "record-home.jpg",
+    "quick-log.jpg",
+    "history.jpg",
+    "archive.jpg"
+  ]
+}
